@@ -1,10 +1,10 @@
-# Multi-Cluster Istio Service Mesh with Spiffe/SPIRE Federation
+# Multi-Cluster Istio Service Mesh with SPIFFE/SPIRE Federation
 
-This guide provides instructions for setting up a multi-cluster Istio service mesh with Spiffe/SPIRE federation to manage identities across multiple Kubernetes clusters.
+This guide provides instructions for setting up a multi-cluster Istio service mesh with SPIFFE/SPIRE federation to manage identities across multiple Kubernetes clusters.
 
 ## Acknowledgment
 
-This project is inspired by the [Istio Service Mesh with Spiffe/SPIRE Federation between EKS clusters](https://github.com/aws-samples/istio-on-eks/tree/main/patterns/eks-istio-mesh-spire-federation). It reuses a significant amount of code from that example, which has been adapted to run on Google Kubernetes Engine (GKE). Additionally, the project can be easily deployed on other cloud platforms.
+This project is inspired by the [Istio Service Mesh with SPIFFE/SPIRE Federation between EKS clusters](https://github.com/aws-samples/istio-on-eks/tree/main/patterns/eks-istio-mesh-spire-federation). It reuses a significant amount of code from that example, which has been adapted to run on Google Kubernetes Engine (GKE). Additionally, the project can be easily deployed on other cloud platforms.
 
 If you intend to run this project in a local environment, please adjust the SPIRE Server's service and SPIRE bundle endpoint configuration by changing from LoadBalancer to NodePort.
 
@@ -226,7 +226,7 @@ Hello version: v2, instance: helloworld-v2-7fd66fcfdc-6shtc
 
 ### Viewing the Certificate Trust Chain
 
-To illustrate the roles of the Root CA and intermediate CA within our configuration, we deploy the "Bookinfo" application. Here, `cert-manager` serves as the Root CA, and Spiffe acts as the intermediate CA, responsible for issuing workload identities and certificates.
+To illustrate the roles of the Root CA and intermediate CA within our configuration, we deploy the "Bookinfo" application. Here, `cert-manager` serves as the Root CA, and SPIFFE acts as the intermediate CA, responsible for issuing workload identities and certificates.
 
 #### Deploying the Bookinfo Application
 
@@ -236,7 +236,7 @@ Execute the following script to deploy the "Bookinfo" application:
 ./examples/deploy-bookinfo.sh
 ```
 
-This script checks the identities issued by Spiffe to the workloads:
+This script checks the identities issued by SPIFFE to the workloads:
 
 ```bash
 kubectl exec -i -t -n spire -c spire-server \
@@ -265,7 +265,7 @@ Examine the root CA certificate (`cert-ab`), noting that `cert-manager` is the i
 openssl x509 -noout -text -in cert-ab
 ```
 
-Inspect the intermediate CA certificate (`cert-aa`), observing Spiffe's role:
+Inspect the intermediate CA certificate (`cert-aa`), observing SPIFFE's role:
 
 ```bash
 openssl x509 -noout -text -in cert-aa
