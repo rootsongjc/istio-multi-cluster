@@ -1,6 +1,6 @@
 #/bin/bash
 
-export CTX_CLUSTER2=bar-eks-cluster
+export CTX_CLUSTER2=cluster-2
 
 
 kubectl config use-context ${CTX_CLUSTER2}

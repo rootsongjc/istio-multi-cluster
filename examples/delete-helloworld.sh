@@ -1,7 +1,7 @@
 #/bin/bash
 
-export CTX_CLUSTER1=foo-eks-cluster
-export CTX_CLUSTER2=bar-eks-cluster
+export CTX_CLUSTER1=cluster-1
+export CTX_CLUSTER2=cluster-2
 
 kubectl delete --context="${CTX_CLUSTER2}" virtualservice helloworld -n helloworld
 kubectl delete --context="${CTX_CLUSTER2}" gateway helloworld-gateway -n helloworld
