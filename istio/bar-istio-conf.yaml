@@ -8,6 +8,10 @@ spec:
     trustDomain: bar.com
     trustDomainAliases:
     - foo.com
+    defaultConfig:
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
   values:
     global:
       meshID: multi-mesh

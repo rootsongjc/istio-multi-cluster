@@ -191,6 +191,28 @@ Hello version: v2, instance: helloworld-v2-7fd66fcfdc-6shtc
 (repeated)
 ```
 
+Delete the `helloworld` service from `cluster-1`:
+
+```bash
+kubectl delete service helloworld -n helloworld --context="${CTX_CLUSTER1}"
+```
+
+Request the `helloworld` service from `cluster-1`:
+
+```bash
+kubectl exec --context="${CTX_CLUSTER1}" -n sleep -c sleep \
+    "$(kubectl get pod --context="${CTX_CLUSTER1}" -n sleep -l \
+    app=sleep -o jsonpath='{.items[0].metadata.name}')" \
+    -- sh -c "while :; do curl -sS helloworld.helloworld:5000/hello; sleep 1; done"
+```
+
+Expected output:
+
+```
+Hello version: v2, instance: helloworld-v2-7fd66fcfdc-6shtc
+(repeated)
+```
+
 ### Verifying North-South Traffic Federation Between Clusters
 
 Initially, both the "hello-world-v1" in `cluster-1` and "hello-world-v2" in `cluster-2` are operational. Scale down the "hello-world-v1" deployment in `cluster-1` to zero, effectively stopping all its pods. Subsequently, configure a Gateway and a Virtual Service in `cluster-2` for the "hello-world-v2" deployment to manage ingress traffic via an Istio Gateway, which acts as a load balancer. This setup directs traffic to the "hello-world-v2" service from outside the mesh (from `cluster-1`).
